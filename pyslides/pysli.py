@@ -1,15 +1,3 @@
-"""
-upquote, textcomp -- for properly handling single quotes, i.e. representing them by a straight apostrophe
-    in order to be able to copy from the generated PDF file and use as it is
-10pt, aspectratio=169, lmodern fonts => 81 characters on a line (~ 80 as in the old days... do I remember correctly?)
-
-Slide separator / new slide command:
-+++ on a separate line, no spaces before and after, ending with a newline (\n)
-    -> test it on Windows for \r\n endlines!!!
-
-no tabs!
-"""
-
 import codecs
 import re
 import subprocess
@@ -22,6 +10,8 @@ PROLOGUE = """\\documentclass[10pt,aspectratio=169]{beamer}
 \\usepackage{lmodern}
 \\usepackage[T1]{fontenc}
 \\usepackage[utf8]{inputenc}
+
+\\setbeamersize{text margin left=2em} 
 
 \\begin{document}
 """
@@ -44,7 +34,7 @@ def create_slides(filein, fileout):
     
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Create PDF slides using the smallest (one-command) markup language.')
+    parser = argparse.ArgumentParser(description='Create verbatim PDF slides using the smallest (one-command) markup language.')
     parser.add_argument('filename', type=str, nargs=1, help='input filename')
     parser.add_argument('-d', metavar='outdir', type=str, nargs=1, required=True, help='output directory')
     args = parser.parse_args()
